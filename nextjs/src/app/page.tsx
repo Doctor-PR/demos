@@ -1,101 +1,252 @@
-import Image from "next/image";
+import React from "react";
+
+interface NewsItem {
+  id: string;
+  rank: number;
+  title: string;
+  url: string;
+  domain: string;
+  points: number;
+  user: string;
+  timeAgo: string;
+  commentsCount: number;
+}
+
+// Data parsed from the provided Hacker News snapshot
+const newsItems: NewsItem[] = [
+  {
+    id: "43744591",
+    rank: 1,
+    title: "Things Zig comptime won't do",
+    url: "https://matklad.github.io/2025/04/19/things-zig-comptime-wont-do.html",
+    domain: "matklad.github.io",
+    points: 296,
+    user: "JadedBlueEyes",
+    timeAgo: "9 hours ago",
+    commentsCount: 111,
+  },
+  {
+    id: "43743337",
+    rank: 2,
+    title: "Gemma 3 QAT Models: Bringing AI to Consumer GPUs",
+    url: "https://developers.googleblog.com/en/gemma-3-quantized-aware-trained-state-of-the-art-ai-to-consumer-gpus/",
+    domain: "googleblog.com",
+    points: 427,
+    user: "emrah",
+    timeAgo: "13 hours ago",
+    commentsCount: 196,
+  },
+  {
+    id: "43717251",
+    rank: 3,
+    title: "Crows can recognize geometric regularity",
+    url: "https://phys.org/news/2025-04-crows-geometric-regularity.html",
+    domain: "phys.org",
+    points: 66,
+    user: "wglb",
+    timeAgo: "6 hours ago",
+    commentsCount: 15,
+  },
+  {
+    id: "43746831",
+    rank: 4,
+    title: "TikZJax: Embedding LaTeX Drawings in HTML",
+    url: "https://tikzjax.com/",
+    domain: "tikzjax.com",
+    points: 29,
+    user: "steventhedev",
+    timeAgo: "2 hours ago",
+    commentsCount: 8,
+  },
+  {
+    id: "43745868",
+    rank: 5,
+    title: "Find the Odd Disk",
+    url: "https://colors2.alessandroroussel.com/",
+    domain: "alessandroroussel.com",
+    points: 84,
+    user: "layer8",
+    timeAgo: "6 hours ago",
+    commentsCount: 60,
+  },
+  {
+    id: "43745040",
+    rank: 6,
+    title: "Signal Carnival",
+    url: "https://www.quiss.org/signal%5Fcarnival/",
+    domain: "quiss.org",
+    points: 86,
+    user: "adunk",
+    timeAgo: "8 hours ago",
+    commentsCount: 7,
+  },
+  {
+    id: "43746461",
+    rank: 7,
+    title: "Decomposing Transactional Systems",
+    url: "https://transactional.blog/blog/2025-decomposing-transactional-systems",
+    domain: "transactional.blog",
+    points: 52,
+    user: "pongogogo",
+    timeAgo: "4 hours ago",
+    commentsCount: 4,
+  },
+  {
+    id: "43746017",
+    rank: 8,
+    title: "Falsify: Hypothesis-Inspired Shrinking for Haskell (2023)",
+    url: "https://www.well-typed.com/blog/2023/04/falsify/",
+    domain: "well-typed.com",
+    points: 53,
+    user: "birdculture",
+    timeAgo: "6 hours ago",
+    commentsCount: 9,
+  },
+  {
+    id: "43745261",
+    rank: 9,
+    title: "New Proof Settles Decades-Old Bet About Connected Networks",
+    url: "https://www.quantamagazine.org/new-proof-settles-decades-old-bet-about-connected-networks-20250418/",
+    domain: "quantamagazine.org",
+    points: 70,
+    user: "rbanffy",
+    timeAgo: "8 hours ago",
+    commentsCount: 11,
+  },
+  {
+    id: "43715024",
+    rank: 10,
+    title: "Which year: guess which year each photo was taken",
+    url: "https://whichyr.com/",
+    domain: "whichyr.com",
+    points: 623,
+    user: "trymas",
+    timeAgo: "21 hours ago",
+    commentsCount: 187,
+  },
+];
+
+function NewsItemComponent({ item }: { item: NewsItem }) {
+  return (
+    <li className="mb-1 flex items-start">
+      <div className="text-right mr-1 text-gray-500 w-5">{item.rank}.</div>
+      <div>
+        <a
+          href={item.url}
+          className="text-black dark:text-gray-200 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {item.title}
+        </a>
+        <span className="text-gray-500 text-xs ml-1">({item.domain})</span>
+        <div className="text-xs text-gray-500">
+          {item.points} points by {item.user} {item.timeAgo} |{" "}
+          <a
+            href={`https://news.ycombinator.com/item?id=${item.id}`}
+            className="hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {item.commentsCount} comments
+          </a>
+        </div>
+      </div>
+    </li>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="mb-2">Save and see your changes instantly.</li>
-          <li>Open a pull request on Github.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+    <div className="bg-[#f6f6ef] dark:bg-[#1e1e1e] min-h-screen p-2 font-sans">
+      <header className="bg-[#ff6600] p-1 mb-2 flex items-center text-sm">
+        <span className="font-bold mr-2 border border-black px-1 py-0.5">
+          Y
+        </span>
+        <span className="font-bold mr-4">Hacker News</span>
+        <nav className="space-x-2">
+          <a href="#" className="hover:underline">
+            new
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            past
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            comments
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            ask
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            show
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            jobs
+          </a>{" "}
+          |
+          <a href="#" className="hover:underline">
+            submit
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+        </nav>
+        <div className="ml-auto">
+          <a href="#" className="hover:underline">
+            login
+          </a>
+        </div>
+      </header>
+      <main className="bg-[#f6f6ef] dark:bg-[#1e1e1e] px-2">
+        <ol>
+          {newsItems.map((item) => (
+            <NewsItemComponent key={item.id} item={item} />
+          ))}
+        </ol>
+        <div className="mt-2 ml-6 text-black dark:text-gray-200">
+          <a href="#" className="hover:underline">
+            More
           </a>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+      <footer className="mt-4 pt-2 border-t border-gray-400 text-center text-xs text-gray-600 dark:text-gray-400">
+        <a href="#" className="hover:underline">
+          Guidelines
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          FAQ
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          Lists
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          API
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          Security
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          Legal
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          Apply to YC
+        </a>{" "}
+        |{" "}
+        <a href="#" className="hover:underline">
+          Contact
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <div className="mt-2">
+          Search:{" "}
+          <input type="text" className="border border-gray-400 px-1 text-xs" />
+        </div>
       </footer>
     </div>
   );
