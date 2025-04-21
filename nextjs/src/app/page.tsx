@@ -1,4 +1,6 @@
 import React from "react";
+import Header from "../components/Header"; // Import the Header component
+import Footer from "../components/Footer"; // Import the Footer component
 
 interface NewsItem {
   id: string;
@@ -159,46 +161,7 @@ function NewsItemComponent({ item }: { item: NewsItem }) {
 export default function Home() {
   return (
     <div className="bg-[#f6f6ef] dark:bg-[#1e1e1e] min-h-screen p-2 font-sans">
-      <header className="bg-[#ff6600] p-1 mb-2 flex items-center text-sm">
-        <span className="font-bold mr-2 border border-black px-1 py-0.5">
-          Y
-        </span>
-        <span className="font-bold mr-4">Hacker News</span>
-        <nav className="space-x-2">
-          <a href="#" className="hover:underline">
-            new
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            past
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            comments
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            ask
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            show
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            jobs
-          </a>{" "}
-          |
-          <a href="#" className="hover:underline">
-            submit
-          </a>
-        </nav>
-        <div className="ml-auto">
-          <a href="#" className="hover:underline">
-            login
-          </a>
-        </div>
-      </header>
+      <Header /> {/* Use the Header component */}
       <main className="bg-[#f6f6ef] dark:bg-[#1e1e1e] px-2">
         <ol>
           {newsItems.map((item) => (
@@ -211,43 +174,7 @@ export default function Home() {
           </a>
         </div>
       </main>
-      <footer className="mt-4 pt-2 border-t border-gray-400 text-center text-xs text-gray-600 dark:text-gray-400">
-        <a href="#" className="hover:underline">
-          Guidelines
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          FAQ
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          Lists
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          API
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          Security
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          Legal
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          Apply to YC
-        </a>{" "}
-        |{" "}
-        <a href="#" className="hover:underline">
-          Contact
-        </a>
-        <div className="mt-2">
-          Search:{" "}
-          <input type="text" className="border border-gray-400 px-1 text-xs" />
-        </div>
-      </footer>
+      <Footer /> {/* Use the Footer component */}
     </div>
   );
 }
